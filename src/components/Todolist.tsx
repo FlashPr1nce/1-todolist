@@ -1,10 +1,14 @@
 import React from 'react';
 
-const Todolist = () => {
+type PropsTypeTodolist = {
+    title: string
+}
+
+const Todolist = (props: PropsTypeTodolist) => {
     return (
         <div>
             <div>
-                <h3>What to learn</h3>
+                <h3>{props.title}</h3>
                 <div>
                     <input/>
                     <button>+</button>
