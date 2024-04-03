@@ -11,23 +11,59 @@ type PropsTypeTodolist = {
     title: string,
 
     tasks: Array<TasksType>
+    removeTask:  (taskId: number) => void
 }
 
+const Todolist = ({title, tasks, removeTask}: PropsTypeTodolist) => {
 
-const Todolist = ({title, tasks}: PropsTypeTodolist) => {
+    let tasksList;
+
+    if (tasks.length === 0) {
+        tasksList = <span>List is empty</span>
+    }
+    else tasksList = <ul>
+        {
+            tasks.map((t: TasksType) => {
+                return (
+                    <li key={t.id}>
+                        <input type="checkbox" checked={t.isDone}/>
+                        <span>{t.title}</span>
+                        <Button title={'x'} onClickHandler={() => removeTask(t.id)}/>
+                    </li>
+                )
+            })
+        }
+    </ul>
+
+    // const tasksList: JSX.Element = tasks.length === 0
+    //     ?
+    //     <span>List is empty</span>
+    //
+    //     : <ul>
+    //         {
+    //             tasks.map((task: TasksType) => {
+    //                 return (
+    //                     <li key={task.id}>
+    //                         <input type="checkbox" checked={task.isDone}/>
+    //                         <span>{task.title}</span>
+    //                         <Button title={'x'} onClickHandler={() => removeTask(task.id)}/>
+    //                     </li>
+    //                 )
+    //             })
+    //         }
+    //     </ul>
+
     return (
-        <div>
+        <div className={'stylesTodolist'}>
             <div>
                 <h3>{title}</h3>
                 <div>
                     <input/>
                     <Button title={'+'}/>
                 </div>
-                <ul>
-                    <li><input type="checkbox" checked={tasks[0].isDone}/> <span>{tasks[0].title}</span></li>
-                    <li><input type="checkbox" checked={tasks[1].isDone}/> <span>{tasks[1].title}</span></li>
-                    <li><input type="checkbox" checked={tasks[2].isDone}/> <span>{tasks[2].title}</span></li>
-                </ul>
+
+                {tasksList}
+
                 <div>
                     <Button title={'All'}/>
                     <Button title={'Active'}/>

@@ -9,3 +9,10 @@
 .App > div {
   margin-right: 50px;
 }
+
+.stylesTodolist {
+  background-color: #5eec5e;
+  border-radius: 5px ;
+  border: 1px solid black;
+  padding: 25px;
+}
