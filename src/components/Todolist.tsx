@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {Button} from "./itemComponents/Button";
+import {FilterValuesType} from "../App";
 
 export type TasksType = {
-    id: number,
+    id: string,
     title: string,
     isDone: boolean
 }
@@ -11,17 +12,22 @@ type PropsTypeTodolist = {
     title: string,
 
     tasks: Array<TasksType>
-    removeTask:  (taskId: number) => void
+    removeTask: (taskId: string) => void
+    changeTodoListFilter: (filter: FilterValuesType) => void
+
+    addNewTask: (title: string) => void
 }
 
-const Todolist = ({title, tasks, removeTask}: PropsTypeTodolist) => {
+const Todolist = ({title, tasks, removeTask, changeTodoListFilter, addNewTask}: PropsTypeTodolist) => {
+
+    const taskTitleInput = useRef<HTMLInputElement>(null)
+
 
     let tasksList;
 
     if (tasks.length === 0) {
         tasksList = <span>List is empty</span>
-    }
-    else tasksList = <ul>
+    } else tasksList = <ul>
         {
             tasks.map((t: TasksType) => {
                 return (
@@ -53,25 +59,35 @@ const Todolist = ({title, tasks, removeTask}: PropsTypeTodolist) => {
     //         }
     //     </ul>
 
-    return (
-        <div className={'stylesTodolist'}>
+    const addTask = () => {
+        if (taskTitleInput.current) {
+            addNewTask(taskTitleInput.current.value)
+            taskTitleInput.current.value = ' '
+        }
+    }
+
+
+return (
+    <div className={'stylesTodolist'}>
+        <div>
+            <h3>{title}</h3>
             <div>
-                <h3>{title}</h3>
-                <div>
-                    <input/>
-                    <Button title={'+'}/>
-                </div>
+                <input ref={taskTitleInput}/>
+                <Button title={'+'} onClickHandler={addTask}/>
+            </div>
 
-                {tasksList}
+            {tasksList}
 
-                <div>
-                    <Button title={'All'}/>
-                    <Button title={'Active'}/>
-                    <Button title={'Completed'}/>
-                </div>
+            <div>
+                <Button title={'All'}
+                        onClickHandler={() => changeTodoListFilter('all')}/>
+                <Button title={'Active'} onClickHandler={() => changeTodoListFilter('active')}/>
+                <Button title={'Completed'} onClickHandler={() => changeTodoListFilter('completed')}/>
             </div>
         </div>
-    );
-};
+    </div>
+);
+}
+;
 
 export default Todolist;
