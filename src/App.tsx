@@ -47,23 +47,29 @@ function App() {
     const addNewTask = (title: string) => {
         const newTask: TasksType = {
             id: v1(),
-            title: title,
+            title,
             isDone: false
         }
 
-        const updatedState = [newTask, ...tasks]
-        setTasks(updatedState)
+        setTasks([newTask, ...tasks])
+    }
+
+    const changeTaskStatus = (taskId: string, isDoneValue: boolean) => {
+       const updatedState = tasks.map(t => t.id === taskId ? {...t, isDone: isDoneValue} : t)
+       setTasks(updatedState)
     }
 
 
     return (
         <div className="App">
             <Todolist
+                filter={filterTasks}
                 title='What to learn'
                 tasks={filteredTasks}
                 removeTask={removeTask}
                 changeTodoListFilter={changeTodoListFilter}
                 addNewTask={addNewTask}
+                changeTaskStatus={changeTaskStatus}
             />
         </div>
     );
