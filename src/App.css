@@ -11,8 +11,31 @@
 }
 
 .stylesTodolist {
-  background-color: #5eec5e;
-  border-radius: 5px ;
+  background-color: #74f8e9;
+  border-radius: 10px ;
   border: 1px solid black;
   padding: 25px;
+}
+
+.is-done {
+  opacity: 0.5;
+}
+
+.btn-active {
+  background-color: rgb(229, 193, 244);
+  color: whitesmoke;
+  padding: 5px;
+}
+
+.warning-input {
+  border: 2px solid red
+}
+
+.warning-span {
+  color: red;
+  display: block;
+}
+
+.request-span{
+  display: block;
 }
