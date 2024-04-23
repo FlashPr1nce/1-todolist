@@ -21,10 +21,16 @@
   opacity: 0.5;
 }
 
-.btn-active {
+.btn-filter {
+  margin: 1px;
+}
+
+.btn-filter-active {
   background-color: rgb(229, 193, 244);
-  color: whitesmoke;
+  color: #ffffff;
   padding: 5px;
+
+  border-radius: 5px;
 }
 
 .warning-input {
