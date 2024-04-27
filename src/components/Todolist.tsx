@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
 import {Button} from "./itemComponents/Button";
 import {FilterValuesType} from "../App";
+import {AddFormItem} from "./itemComponents/AddFormItem";
 
 export type TasksType = {
     id: string,
@@ -35,8 +36,6 @@ const Todolist = ({
                       removeTodolist
                   }: PropsTypeTodolist) => {
 
-        const [taskTitle, setTaskTitle] = React.useState('')
-        const [inputError, setInputError] = useState<boolean>(false)
 
         let tasksList;
         if (tasks.length === 0) {
@@ -62,29 +61,12 @@ const Todolist = ({
             }
         </ul>
 
-        const addTaskHandler = () => {
-            const trimmedTaskTitle = taskTitle.trim()
-            if (trimmedTaskTitle) {
-                addNewTask(taskTitle.trim(), todolistID)
-            } else {
-                setInputError(true)
-                setTimeout(() => (setInputError(false)), 4000)
-            }
-            setTaskTitle('')
-        }
-
-        const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-            if (e.key === 'Enter') {
-                addTaskHandler()
-            }
-        }
-
-        const setTaskTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
-            setTaskTitle(e.currentTarget.value)
-        }
-
         const removeTodolists = () => {
             removeTodolist(todolistID)
+        }
+
+        const addTask = (title: string) =>{
+            addNewTask(title, todolistID)
         }
 
         return (
@@ -96,15 +78,7 @@ const Todolist = ({
                     </h3>
 
                     <div>
-                        <input
-                            className={inputError ? 'warning-input' : ''}
-                            value={taskTitle}
-                            onChange={setTaskTitleHandler}
-                            onKeyDown={onKeyDownHandler}
-                        />
-                        <Button title={'+'} onClickHandler={addTaskHandler} isDisabled={!taskTitle}/>
-                        {taskTitle.length > 15 && <h4>Text can`t exceed 15 symbols</h4>}
-                        <span className={inputError ? 'warning-span' : 'request-span'}>Please enter your task</span>
+                        <AddFormItem addNewItem={addTask}/>
                     </div>
 
                     {tasksList}
