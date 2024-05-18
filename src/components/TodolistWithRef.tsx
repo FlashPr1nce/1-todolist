@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {Button} from "./itemComponents/Button";
+import {Btn} from "./itemComponents/Button";
 import {FilterValuesType} from "../App";
 
 export type TasksType = {
@@ -34,7 +34,7 @@ const Todolist = ({title, tasks, removeTask, changeTodoListFilter, addNewTask}: 
                     <li key={t.id}>
                         <input type="checkbox" checked={t.isDone}/>
                         <span>{t.title}</span>
-                        <Button title={'x'} onClickHandler={() => removeTask(t.id)}/>
+                        <Btn title={'x'} onClickHandler={() => removeTask(t.id)}/>
                     </li>
                 )
             })
@@ -73,16 +73,16 @@ return (
             <h3>{title}</h3>
             <div>
                 <input ref={taskTitleInput}/>
-                <Button title={'+'} onClickHandler={addTask}/>
+                <Btn title={'+'} onClickHandler={addTask}/>
             </div>
 
             {tasksList}
 
             <div>
-                <Button title={'All'}
+                <Btn title={'All'}
                         onClickHandler={() => changeTodoListFilter('all')}/>
-                <Button title={'Active'} onClickHandler={() => changeTodoListFilter('active')}/>
-                <Button title={'Completed'} onClickHandler={() => changeTodoListFilter('completed')}/>
+                <Btn title={'Active'} onClickHandler={() => changeTodoListFilter('active')}/>
+                <Btn title={'Completed'} onClickHandler={() => changeTodoListFilter('completed')}/>
             </div>
         </div>
     </div>

@@ -1,9 +1,9 @@
 .App {
-  padding: 30px;
-  display: flex;
+  /*padding: 30px;*/
+  /*display: flex;*/
 
-  align-items: center;
-  justify-content: center;
+  /*align-items: center;*/
+  /*justify-content: center;*/
 }
 
 .App > div {
@@ -11,37 +11,24 @@
 }
 
 .stylesTodolist {
-  background-color: #74f8e9;
-  border-radius: 10px ;
-  border: 1px solid black;
-  padding: 25px;
+  /*background-color: #74f8e9;*/
+
 }
 
 .is-done {
   opacity: 0.5;
 }
 
-.btn-filter {
-  margin: 1px;
-}
 
-.btn-filter-active {
-  background-color: rgb(229, 193, 244);
-  color: #ffffff;
-  padding: 5px;
+/*.warning-input {*/
+/*  border: 2px solid red*/
+/*}*/
 
-  border-radius: 5px;
-}
+/*.warning-span {*/
+/*  color: red;*/
+/*  display: block;*/
+/*}*/
 
-.warning-input {
-  border: 2px solid red
-}
-
-.warning-span {
-  color: red;
-  display: block;
-}
-
-.request-span{
-  display: block;
-}
+/*.request-span{*/
+/*  display: block;*/
+/*}*/

@@ -1,6 +1,8 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {Button} from "./Button";
-import {TasksType} from "../Todolist";
+import {Btn} from "./Button";
+import Button from "@mui/material/Button";
+import {TextField, IconButton} from "@mui/material";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 type AddFormItemPropsItem = {
     addNewItem: (title: string) => void,
@@ -34,15 +36,21 @@ export const AddFormItem = ({addNewItem}: AddFormItemPropsItem) => {
 
     return (
         <div>
-            <input
-                className={inputError ? 'warning-input' : ''}
+            <TextField
+                label={inputError ? 'Please fill in the input field' : 'Enter field'}
+                size={'small'}
+                error={!!inputError}
+                variant={'outlined'}
                 value={taskTitle}
                 onChange={setTaskTitleHandler}
-                onKeyDown={onKeyDownHandler}
-            />
-            <Button title={'+'} onClickHandler={addTaskHandler} isDisabled={!taskTitle}/>
+                onKeyDown={onKeyDownHandler}/>
+
+            {/*<Btn variant={'contained'} color={'primary'} title={'+'} onClickHandler={addTaskHandler}*/}
+            {/*     isDisabled={!taskTitle}/>*/}
+            <IconButton onClick={addTaskHandler} disabled={!taskTitle} color={'primary'}>
+                <AddBoxIcon />
+            </IconButton>
             {taskTitle.length > 15 && <h4>Text can`t exceed 15 symbols</h4>}
-            <span className={inputError ? 'warning-span' : 'request-span'}>Please fill in the input field</span>
         </div>
     );
 };

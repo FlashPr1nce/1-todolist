@@ -1,18 +1,19 @@
 import React from 'react';
 import { FilterValuesType } from '../../App';
+import {Button, ButtonProps} from "@mui/material";
 
-type ButtonPropsType = {
-    title: string
-    onClickHandler?: () => void
-    isDisabled?: boolean
-    classes?: string
+type ButtonPropsType = ButtonProps & {
+    title: string;
+    onClickHandler?: () => void;
+    isDisabled?: boolean;
+    classes?: string;
 }
 
-export const Button = ({title, onClickHandler, isDisabled, classes}:ButtonPropsType) => {
+export const Btn: React.FC<ButtonPropsType> = ({title, onClickHandler, isDisabled, classes, ...buttonProps}:ButtonPropsType) => {
     return (
-        <button onClick={onClickHandler} disabled={isDisabled} className={classes}>
+        <Button {...buttonProps} onClick={onClickHandler} disabled={isDisabled} className={classes}>
             {title}
-        </button>
+        </Button>
     );
 };
 
