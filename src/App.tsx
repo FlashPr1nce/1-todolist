@@ -19,7 +19,7 @@ export type TodolistType = {
     filter: FilterValuesType
 }
 
-type TodolistTaskStateType = {
+export type TodolistTaskStateType = {
     [key: string]: TasksType[]
 }
 
@@ -135,7 +135,7 @@ function App() {
                     </Toolbar>
                 </AppBar>
 
-                <Container>
+                <Container sx={{minHeight: '100vh'}}>
                     <Grid container sx={{mb: '30px'}}>
                         <AddFormItem addNewItem={addTodolist}/>
                     </Grid>
