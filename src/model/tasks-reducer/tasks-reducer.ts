@@ -37,13 +37,15 @@ export type ChangeTaskTitleType = {
     }
 }
 
-type ActionTypes = RemoveTaskActionType | AddTaskActionType | ChangeTaskStatusType | ChangeTaskTitleType |
+export type ActionTypesTasks = RemoveTaskActionType | AddTaskActionType | ChangeTaskStatusType | ChangeTaskTitleType |
     //ДАННЫЙ ТИП МЫ ИМПОРТИРОВАЛИ ИЗ РЕДЬЮСЕРА ТУДУЛИСТА
     AddTodolistActionType |
     //ДАННЫЙ ТИП МЫ ИМПОРТИРОВАЛИ ИЗ РЕДЬЮСЕРА ТУДУЛИСТА
     RemoveTodolistActionType
 
-export const tasksReducer = (state: TodolistTaskStateType, action: ActionTypes) => {
+export let InitialStateTasks: TodolistTaskStateType = {}
+
+export const tasksReducer = (state = InitialStateTasks, action: ActionTypesTasks) => {
     switch (action.type) {
         case 'REMOVE-TASK': {
             const {todolistID, taskId} = action.payload;
@@ -93,7 +95,7 @@ export const tasksReducer = (state: TodolistTaskStateType, action: ActionTypes) 
         }
 
         default:
-            throw new Error(`Don’t understand action type: ${action}`)
+            return state
     }
 }
 
