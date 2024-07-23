@@ -1,6 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {Btn} from "./Button";
-import Button from "@mui/material/Button";
+import React, {ChangeEvent, KeyboardEvent, memo, useCallback, useState} from 'react';
 import {TextField, IconButton} from "@mui/material";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
@@ -8,7 +6,9 @@ type AddFormItemPropsItem = {
     addNewItem: (title: string) => void,
 }
 
-export const AddFormItem = ({addNewItem}: AddFormItemPropsItem) => {
+export const AddFormItem = memo(({addNewItem}: AddFormItemPropsItem) => {
+
+    console.log('AddFormItem')
 
     const [taskTitle, setTaskTitle] = React.useState('')
     const [inputError, setInputError] = useState<boolean>(false)
@@ -17,7 +17,7 @@ export const AddFormItem = ({addNewItem}: AddFormItemPropsItem) => {
         setTaskTitle(e.currentTarget.value)
     }
 
-    const addTaskHandler = () => {
+    const addTaskHandler = useCallback( () => {
         const trimmedTaskTitle = taskTitle.trim()
         if (trimmedTaskTitle) {
             addNewItem(taskTitle.trim())
@@ -26,7 +26,7 @@ export const AddFormItem = ({addNewItem}: AddFormItemPropsItem) => {
             setTimeout(() => (setInputError(false)), 4000)
         }
         setTaskTitle('')
-    }
+    }, [taskTitle, addNewItem])
 
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -53,5 +53,5 @@ export const AddFormItem = ({addNewItem}: AddFormItemPropsItem) => {
             {taskTitle.length > 15 && <h4>Text can`t exceed 15 symbols</h4>}
         </div>
     );
-};
+});
 

@@ -1,6 +1,6 @@
 import React, {Reducer, useReducer, useState} from 'react';
 import './App.css';
-import Todolist, {TasksType} from "./components/Todolist";
+import {TasksType, Todolist} from "./components/Todolist";
 import {v1} from "uuid";
 import {AddFormItem} from "./components/itemComponents/AddFormItem";
 import IconButton from "@mui/material/IconButton/IconButton";

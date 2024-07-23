@@ -1,5 +1,4 @@
-import React from 'react';
-import { FilterValuesType } from '../../App';
+import React, {memo} from 'react';
 import {Button, ButtonProps} from "@mui/material";
 
 type ButtonPropsType = ButtonProps & {
@@ -9,11 +8,14 @@ type ButtonPropsType = ButtonProps & {
     classes?: string;
 }
 
-export const Btn: React.FC<ButtonPropsType> = ({title, onClickHandler, isDisabled, classes, ...buttonProps}:ButtonPropsType) => {
+export const Btn: React.FC<ButtonPropsType> = memo(({title, onClickHandler, isDisabled, classes, ...buttonProps}:ButtonPropsType) => {
+
+    console.log('Button')
+
     return (
         <Button {...buttonProps} onClick={onClickHandler} disabled={isDisabled} className={classes}>
             {title}
         </Button>
     );
-};
+})
 

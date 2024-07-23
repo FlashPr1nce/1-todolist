@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import AppWithReducers from "./AppWithReducers";
-import AppWithRedux from "./AppWithRedux";
 import {Provider} from "react-redux";
 import {store} from "./model/store";
+import { AppWithRedux } from './AppWithRedux';
 
 
 const root = ReactDOM.createRoot(
