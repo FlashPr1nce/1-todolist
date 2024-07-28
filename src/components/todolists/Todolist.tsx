@@ -1,11 +1,12 @@
 import React, {ChangeEvent, memo, useCallback} from 'react';
-import {FilterValuesType} from "../App";
-import {AddFormItem} from "./itemComponents/AddFormItem";
-import {EditableSpan} from "./itemComponents/EditableSpan";
-import {Btn} from "./itemComponents/Button";
+import {FilterValuesType} from "../../App";
+import {AddFormItem} from "../itemComponents/add-form-item/AddFormItem";
+import {EditableSpan} from "../itemComponents/editable-span/EditableSpan";
+import {Btn} from "../itemComponents/button/Button";
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from "@mui/icons-material";
-import {Box, Checkbox, List, ListItem} from "@mui/material";
+import {Box,  List} from "@mui/material";
+import {TaskItem} from "../tasks/TaskItem";
 
 export type TasksType = {
     id: string,
@@ -43,48 +44,30 @@ export const Todolist = memo(({
 
     console.log('TODOLIST');
 
+    let tasksForTodolist = tasks
+
+    if (filter === 'active') {
+        tasksForTodolist = tasks.filter(t => !t.isDone)
+    }
+    if (filter === 'completed') {
+        tasksForTodolist = tasks.filter(t => t.isDone)
+    }
+
     let tasksList;
-    if (tasks.length === 0) {
+    if (tasksForTodolist.length === 0) {
         tasksList = <span>List is empty</span>;
     } else {
         tasksList = (
             <List>
                 {
-                    tasks.map((t: TasksType) => {
-
-                        const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                            changeTaskStatus(t.id, e.currentTarget.checked, todolistID);
-                        };
-                        const changeTitleHandler = (newValue: string) => {
-                            changeTaskTitle(t.id, newValue, todolistID);
-                        };
-
-                        return (
-                            <ListItem key={t.id}
-                                      sx={{
-                                          p: '0',
-                                          justifyContent: 'space-between'
-                                      }}
-                            >
-                                <>
-                                    <Checkbox onChange={changeTaskStatusHandler}
-                                              checked={t.isDone}
-                                              sx={{ml: '25px'}}
-                                    />
-                                    <EditableSpan className={t.isDone ? 'is-done' : ''} title={t.title}
-                                                  onChange={changeTitleHandler}/>
-                                </>
-
-                                <IconButton onClick={() => removeTask(t.id, todolistID)}
-                                            sx={{
-                                                mr: '25px',
-                                                opacity: t.isDone ? '0.5' : ''
-                                            }}>
-                                    <Delete/>
-                                </IconButton>
-                            </ListItem>
-                        );
-                    })
+                    tasksForTodolist.map((t: TasksType) => (
+                        <TaskItem key={t.id}
+                                  task={t}
+                                  todolistID={todolistID}
+                                  removeTask={removeTask}
+                                  changeTaskStatus={changeTaskStatus}
+                                  changeTaskTitle={changeTaskTitle}/>
+                    ))
                 }
             </List>
         );
@@ -101,6 +84,19 @@ export const Todolist = memo(({
     const changeTodolistTitle = useCallback((titleValue: string) => {
         newTodolistTitle(todolistID, titleValue);
     }, [newTodolistTitle, todolistID]);
+
+
+    const onAllClickHandler = useCallback(() => {
+        changeTodoListFilter('all', todolistID);
+    }, [changeTodoListFilter, todolistID]);
+
+    const onActiveClickHandler = useCallback(() => {
+        changeTodoListFilter('active', todolistID);
+    }, [changeTodoListFilter, todolistID]);
+
+    const onCompletedClickHandler = useCallback(() => {
+        changeTodoListFilter('completed', todolistID);
+    }, [changeTodoListFilter, todolistID]);
 
     return (
         <div className={'stylesTodolist'}>
@@ -121,11 +117,11 @@ export const Todolist = memo(({
                 <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
                     <Btn variant={filter === 'all' ? 'contained' : 'text'}
                          title={'All'}
-                         onClickHandler={() => changeTodoListFilter('all', todolistID)}/>
+                         onClickHandler={onAllClickHandler}/>
                     <Btn variant={filter === 'active' ? 'contained' : 'text'} title={'Active'}
-                         onClickHandler={() => changeTodoListFilter('active', todolistID)}/>
+                         onClickHandler={onActiveClickHandler}/>
                     <Btn variant={filter === 'completed' ? 'contained' : 'text'} title={'Completed'}
-                         onClickHandler={() => changeTodoListFilter('completed', todolistID)}/>
+                         onClickHandler={onCompletedClickHandler}/>
                 </Box>
             </div>
         </div>

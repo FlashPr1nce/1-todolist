@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
-import {Btn} from "./itemComponents/Button";
-import {FilterValuesType} from "../App";
+import {Btn} from "../itemComponents/button/Button";
+import {FilterValuesType} from "../../App";
 
 export type TasksType = {
     id: string,

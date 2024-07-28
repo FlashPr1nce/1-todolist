@@ -76,12 +76,12 @@ test('task title should be changed', () => {
     expect(endState['todolistId2'][0].title).toBe('NewTaskTitle')
 })
 
-test('new array should be added when new todolist is added', () => {
+test('new array should be added when new todolists is added', () => {
     //ДАННЫЙ ТЕСТ ПРОВЕРЯЕТ ЧТО БЫЛ СОЗДАН НОВЫЙ ПУСТОЙ МАССИВ ТАСОК В ТО ВРЕМЯ, КОГДА МЫ СОЗДАЛИ НОВЫЙ ТУДУЛИСТ
 
 
     //ДАННЫЙ AC МЫ ИМПОРТИРУЕМ ИЗ РЕДЬЮСЕРА ТУДУЛИСТОВ
-    const action = addTodolistAC('new todolist')
+    const action = addTodolistAC('new todolists')
 
     const endState = tasksReducer(startState, action)
 

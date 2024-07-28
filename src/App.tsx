@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import './App.css';
-import {TasksType, Todolist} from "./components/Todolist";
+import {TasksType, Todolist} from "./components/todolists/Todolist";
 import {v1} from "uuid";
-import {AddFormItem} from "./components/itemComponents/AddFormItem";
+import {AddFormItem} from "./components/itemComponents/add-form-item/AddFormItem";
 import IconButton from "@mui/material/IconButton/IconButton";
 import {AppBar, Container, Grid, Paper, ScopedCssBaseline, Toolbar} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';

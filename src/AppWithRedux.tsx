@@ -1,7 +1,7 @@
 import React, {memo, useCallback, useState} from 'react';
 import './App.css';
-import {TasksType, Todolist} from "./components/Todolist";
-import {AddFormItem} from "./components/itemComponents/AddFormItem";
+import {TasksType, Todolist} from "./components/todolists/Todolist";
+import {AddFormItem} from "./components/itemComponents/add-form-item/AddFormItem";
 import IconButton from "@mui/material/IconButton/IconButton";
 import {AppBar, Container, Grid, Paper, ScopedCssBaseline, Toolbar} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
@@ -13,14 +13,12 @@ import {
     changeTodoListFilterAC,
     newTodolistTitleAC,
     removeTodolistAC,
-    todolistsReducer
 } from "./model/todolists-reducer/todolists-reducer";
 import {
     addTaskAC,
     changeTaskStatusAC,
     changeTaskTitleAC,
     removeTaskAC,
-    tasksReducer
 } from "./model/tasks-reducer/tasks-reducer";
 import { useSelector, useDispatch } from 'react-redux';
 import { AppRootStateType } from './model/store';
@@ -123,6 +121,9 @@ export const AppWithRedux = memo(() => {
 
                     <Grid container>
                         {todolists.map((el) => {
+
+                            let tasksForTodolist = tasks[el.id]
+
                             return (
                                 <Grid item key={el.id} sx={{m: '15px'}}>
                                     <Paper elevation={10} sx={{p: '25px', borderRadius: '10px'}}>
@@ -131,7 +132,7 @@ export const AppWithRedux = memo(() => {
                                             filter={el.filter}
                                             title={el.title}
                                             removeTodolist={removeTodolist}
-                                            tasks={tasks[el.id]}
+                                            tasks={tasksForTodolist}
                                             removeTask={removeTask}
                                             changeTodoListFilter={changeTodoListFilter}
                                             addNewTask={addNewTask}

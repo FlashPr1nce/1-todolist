@@ -1,5 +1,5 @@
 import {TodolistTaskStateType} from "../../App";
-import {TasksType} from "../../components/Todolist";
+import {TasksType} from "../../components/todolists/Todolist";
 import {v1} from "uuid";
 import {AddTodolistActionType, RemoveTodolistActionType} from "../todolists-reducer/todolists-reducer";
 
@@ -11,7 +11,7 @@ export type RemoveTaskActionType = {
     }
 }
 
-export type AddTaskActionType= {
+export type AddTaskActionType = {
     type: 'ADD-TASK',
     payload: {
         todolistID: string,
@@ -62,11 +62,11 @@ export const tasksReducer = (state = InitialStateTasks, action: ActionTypesTasks
         }
         case 'CHANGE-TASK-STATUS': {
             const {todolistID, taskId, isDoneValue} = action.payload
-            const updatedState = state[todolistID].find(t => t.id === taskId)
-            if (updatedState) {
-                updatedState.isDone = isDoneValue
-            }
-            return {...state}
+            let todolistTasks = state[todolistID];
+            let newTasksArray = todolistTasks
+                .map(t => t.id === taskId ? {...t, isDone: isDoneValue} : t);
+            state[todolistID] = newTasksArray
+            return ({...state});
         }
 
         case 'CHANGE-TASK-TITLE': {
@@ -75,6 +75,7 @@ export const tasksReducer = (state = InitialStateTasks, action: ActionTypesTasks
             if (updatedState) {
                 updatedState.title = newValue
             }
+            state[todolistID] = [...state[todolistID]]
             return {...state}
         }
 
@@ -89,9 +90,9 @@ export const tasksReducer = (state = InitialStateTasks, action: ActionTypesTasks
         //ЗДЕСЬ МЫ СОЗДАЕМ КЕЙС ДЛЯ ПРОВЕРКИ УДАЛЕНИЯ НОВОГО ТУДУЛИСТА
         case "REMOVE-TODOLIST": {
             const {id} = action.payload
-                const newState = { ...state };
-                delete newState[id];
-                return newState;
+            const newState = {...state};
+            delete newState[id];
+            return newState;
         }
 
         default:
@@ -99,7 +100,7 @@ export const tasksReducer = (state = InitialStateTasks, action: ActionTypesTasks
     }
 }
 
-export const removeTaskAC = (taskId: string, todolistID: string):RemoveTaskActionType => {
+export const removeTaskAC = (taskId: string, todolistID: string): RemoveTaskActionType => {
     return {
         type: 'REMOVE-TASK',
         payload: {
@@ -109,7 +110,7 @@ export const removeTaskAC = (taskId: string, todolistID: string):RemoveTaskActio
     }
 }
 
-export const addTaskAC = (todolistID: string, title: string):AddTaskActionType => {
+export const addTaskAC = (todolistID: string, title: string): AddTaskActionType => {
     return {
         type: 'ADD-TASK',
         payload: {
@@ -119,7 +120,7 @@ export const addTaskAC = (todolistID: string, title: string):AddTaskActionType =
     }
 }
 
-export const changeTaskStatusAC = (taskId: string, isDoneValue: boolean, todolistID: string):ChangeTaskStatusType => {
+export const changeTaskStatusAC = (taskId: string, isDoneValue: boolean, todolistID: string): ChangeTaskStatusType => {
     return {
         type: 'CHANGE-TASK-STATUS',
         payload: {
